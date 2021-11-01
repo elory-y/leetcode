@@ -1,0 +1,67 @@
+力扣题目连接：https://leetcode-cn.com/problems/binary-search/
+给定一个 n 个元素有序的（升序）整型数组 nums 和一个目标值 target  ，写一个函数搜索 nums 中的 target，如果目标值存在返回下标，否则返回 -1
+
+示例：
+输入: nums = [-1,0,3,5,9,12], target = 9     
+输出: 4       
+解释: 9 出现在 nums 中并且下标为 4     
+
+思路：
+二分法前提条件：1、有序数组，2、数组无重复元素
+涉及到两种区间定义：左闭右闭；左闭右开
+
+
+作者代码
+```
+## 左闭右闭区间
+class Solution:
+    def search(self, nums: List[int], target: int) -> int:
+        left, right = 0, len(nums) - 1
+        
+        while left <= right:
+            middle = (left + right) // 2
+
+            if nums[middle] < target:
+                left = middle + 1
+            elif nums[middle] > target:
+                right = middle - 1
+            else:
+                return middle
+        return -1
+        
+### 左闭右开区间
+class Solution:
+    def search(self, nums: List[int], target: int) -> int:
+        left,right  =0, len(nums)
+        while left < right:
+            mid = (left + right) // 2
+            if nums[mid] < target:
+                left = mid + 1
+            elif nums[mid] > target:
+                right = mid
+            else:
+                return mid
+        return -1
+
+```
+
+
+### 我的代码
+```
+class Solution:
+    def search(self, nums: List[int], target: int) -> int:
+        left, right = 0, len(nums) - 1  # 左闭右闭区间
+
+        while left <= right:
+            middle = (left + right) // 2
+            if nums[middle] > target:
+                # right = middle 会增加循环次数，增大时间复杂度
+                right = middle -1
+            elif nums[middle] < target:
+                # left = middle
+                left = middle + 1
+            else:
+                return middle
+        return -1
+```        
+# 需要注意的是 right = middle 会增加循环次数，增大时间复杂度，导致运行超时
