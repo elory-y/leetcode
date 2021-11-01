@@ -1,0 +1,52 @@
+** 力扣题目链接：https://leetcode-cn.com/problems/squares-of-a-sorted-array/
+给你一个按 非递减顺序 排序的整数数组 nums，返回 每个数字的平方 组成的新数组，要求也按 非递减顺序 排序。
+示例 1： 输入：nums = [-4,-1,0,3,10] 输出：[0,1,9,16,100] 解释：平方后，数组变为 [16,1,0,9,100]，排序后，数组变为 [0,1,9,16,100]
+示例 2： 输入：nums = [-7,-3,2,3,11] 输出：[4,9,9,49,121]
+
+** 思路 **
+数组有序，数组的平方的最大值就在数组的两端，不是在最左边就是最右边
+考虑双指针法，i指向起始位置，j指向终止位置
+定义一个新数组result, 和nums一样的大小，让k指向result的终止位置
+if num[i] * num[i] < num[j] * num[j]:
+    result[k] = num[j] * num[j]
+else (num[i] * num[i] >= num[j] * num[j]):
+    result[k] = num[i] * num[i]
+    
+    
+** 作者代码 **
+class Solution:
+    def sortedSquares(self, nums):
+        n = len(nums)
+        i,j,k = 0,n-1,n-1
+        
+        ans = [-1] * n
+        while i <= j:
+            lm = nums[i] ** 2
+            rm = nums[j] ** 2
+            if lm > rm:
+                ans[k] = lm
+                i += 1
+            else:
+                ans[k] = rm
+                j -=1
+            k -= 1
+        return ans
+
+** 我的代码 **
+class Solution:
+    def sortedSquares(self, nums: List[int]) -> List[int]:
+        n = len(nums)
+        # 双指针法
+        i, j, k = 0, n-1, n-1
+        result = [-1] * n
+        while i <= j:
+            lm = nums[i] ** 2
+            nm = nums[j] ** 2
+            if lm > nm:
+                result[k] = lm
+                i += 1 
+            else:
+                result[k] = nm
+                j -= 1
+            k -= 1
+        return result
