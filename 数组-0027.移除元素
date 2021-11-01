@@ -1,0 +1,57 @@
+力扣题目链接：https://leetcode-cn.com/problems/remove-element/
+给定 数组nums 和 值val，原地移除数组中所有数值为 val 的元素，返回移除后数组的新长度。
+不能使用额外的数组空间，仅使用 O(1) 额外空间并原地修改输入数组
+示例 1: 给定 nums = [3,2,2,3], val = 3, 函数应该返回新的长度 2, 并且 nums 中的前两个元素均为 2。
+
+
+** 思路 **
+数组的元素在内存地址中是连续的，不能单独的删除数组中的某个元素，只能覆盖。
+
+
+** 作者代码 **
+class Solution:
+    """双指针法
+    时间复杂度：O(n)
+    空间复杂度：O(1)
+    """
+
+    @classmethod
+    def removeElement(cls, nums: List[int], val: int) -> int:
+        fast = slow = 0
+
+        while fast < len(nums):
+
+            if nums[fast] != val:
+                nums[slow] = nums[fast]
+                slow += 1
+
+            # 当 fast 指针遇到要删除的元素时停止赋值
+            # slow 指针停止移动, fast 指针继续前进
+            fast += 1
+
+        return slow
+
+
+** 我的代码 **
+class Solution:
+    def removeElement(self, nums, val):
+        index = 0
+        
+        for i in range(len(nums)):
+            if nums[i] != val:
+                nums[index] = nums[i]
+                index += 1
+        return index
+        
+class Solution:
+    def removeElement(self, nums, val):
+        index = i = 0
+        
+        while i < len(nums):
+            if nums[i] != val:
+                nums[index] = nums[i]
+                index += 1
+            i += 1
+        return index
+      
+** 采用whlie循环，循环次数更少，时间复杂度低 **
