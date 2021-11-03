@@ -13,4 +13,76 @@
 
 ******************作者代码
 class Solution:
+    def generateMatrix(self, n: int)-> List[List[int]:
+        
+        # 初始化要填充的正方形
+        matrix = [[0] * n for _ in range(n)]
+        left, right, up, down = 0, n-1, 0, n-1
+        number = 1
+        
+        while left < right and up < down:
+            # 从左边填充到右边
+            for x in range(left, right):
+                matrix[up][x] = number
+                number += 1
+            
+            # 从上边填充到下边
+            for y in range(up, down):
+                matrix[y][right] = number
+                number += 1
+            
+            # 从右到左填充下边
+            for x in range(right, left, -1):
+                matrix[down][x] = number
+                number += 1
+            
+            for y in range(down, up, -1):
+                matrix[y][left] = number
+                number += 1
+            
+            left += 1
+            right -= 1
+            up += 1
+            down -= 1
+            
+        # 如果阶数为奇数，额外填充一次中心
+        if n % 2 :
+            matrix[n//2][n//2] = number
+
+        return matrix
+        
+*******************我的代码
+class Solution:
+    def generateMatrix(self, n: int) -> List[List[int]]:
+        matrix = [[0]*n for _ in range(n)]
+        left, right, up, down = 0, n-1, 0, n-1
+        number = 1   # 起始数字
+
+        while left<right and up<down:
+            for x in range(left, right):
+                matrix[up][x] = number
+                number +=1
+
+            for y in range(up, down):
+                matrix[y][right] = number
+                number+=1
+
+            for x in range(right, left, -1):
+                matrix[down][x]=number
+                number+=1
+
+            for y in range(down, up, -1):
+                matrix[y][left]=number
+                number+=1
+            left+=1
+            right-=1
+            up+=1
+            down-=1
+            
+       # 最中心的数在执行完循环之后再去判断     
+        if n%2:
+            matrix[n//2][n//2]=number
+        return matrix
+            
+            
     
